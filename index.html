@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><title>AKSHARAA SCROLLS</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700&family=Noto+Sans+Devanagari:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#efe6d2;--ink:#1b1612;--mut:#6d6254;--card:#fbf5e6;--ac:#c8321a;--ln:#d8cbb0;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#14110f;--ink:#f4ead8;--mut:#a89c88;--card:#221d19;--ln:#3a322b}}
+:root[data-theme="dark"]{--bg:#14110f;--ink:#f4ead8;--mut:#a89c88;--card:#221d19;--ln:#3a322b}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+html,body{height:100%;margin:0}
+body{background:var(--bg);color:var(--ink);font:15px/1.45 'Noto Sans Devanagari',system-ui,sans-serif}
+button{font:inherit;cursor:pointer;color:inherit}
+input,textarea{font:inherit;color:var(--ink);background:var(--card);border:1px solid var(--ln);border-radius:10px;padding:9px;width:100%;box-sizing:border-box}
+.pr{background:var(--ac);color:#fff;border:0;border-radius:10px;padding:10px 16px;font-weight:600}
+.gh{background:none;border:1px solid var(--ln);border-radius:10px;padding:9px 14px}
+.mut{color:var(--mut);font-size:13px}
+#app{height:100%;max-width:480px;margin:0 auto;display:flex;flex-direction:column}
+#shell{display:none;flex:1;min-height:0;flex-direction:column}
+.top{display:flex;justify-content:space-between;align-items:center;padding:9px 14px;border-bottom:1px solid var(--ln)}
+.logo{font:700 17px/1 Fraunces,Georgia,serif;letter-spacing:.05em}
+main{flex:1;min-height:0;position:relative;overflow:hidden}
+.view{position:absolute;inset:0;overflow-y:auto;display:none}.view.on{display:block}
+#feed{scroll-snap-type:y mandatory}
+.pg{padding:14px}
+nav{display:flex;border-top:1px solid var(--ln)}
+nav button{flex:1;background:none;border:0;padding:12px 0;color:var(--mut)}nav button.on{color:var(--ac);font-weight:700}
+.reel{height:100%;scroll-snap-align:start;scroll-snap-stop:always;position:relative;color:#fff;overflow:hidden;display:flex;flex-direction:column;justify-content:space-between;padding:14px 64px 16px 16px;box-sizing:border-box}
+.reel>*{position:relative;z-index:1}
+.Society{background:linear-gradient(160deg,#7a1f12,#2a0d09)}.Civics{background:linear-gradient(160deg,#1f2a6b,#0b1030)}.Geography{background:linear-gradient(160deg,#1e5b3a,#082116)}.Service{background:linear-gradient(160deg,#8a1530,#33060f)}.Development{background:linear-gradient(160deg,#855205,#2b1a02)}.Culture{background:linear-gradient(160deg,#4a1d5e,#170720)}.Vid{background:#000}
+.reel video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
+.bars{display:flex;gap:4px}.bars b{flex:1;height:3px;background:#fff4;border-radius:2px}.bars b.f{background:#fff}
+.pill{font-size:12px;background:#0006;padding:3px 10px;border-radius:99px;display:inline-block;margin-top:8px}
+.sl{font:600 clamp(22px,6.2vw,30px)/1.32 Fraunces,Georgia,'Noto Sans Devanagari',serif;flex:1;display:flex;align-items:center;cursor:pointer}
+.ti{font-weight:700;margin-bottom:3px}.cc{font-size:14px;opacity:.92}
+.lg{margin-top:8px;display:flex;gap:6px}.lg button{background:#0005;border:1px solid #fff5;color:#fff;border-radius:99px;padding:3px 12px;font-size:12px}.lg button.on{background:#fff;color:#111}
+.rail{position:absolute;right:8px;bottom:110px;display:flex;flex-direction:column;gap:14px;z-index:2}
+.rail button{width:44px;height:44px;border-radius:50%;border:0;background:#0006;color:#fff;font-size:19px}.rail button.on{background:var(--ac)}
+.ov{position:fixed;inset:0;background:#000a;display:flex;align-items:flex-end;justify-content:center;z-index:9}
+.sh{background:var(--card);color:var(--ink);width:100%;max-width:480px;max-height:85%;overflow:auto;border-radius:18px 18px 0 0;padding:18px;box-sizing:border-box}
+.sh.full{height:85%;padding:0;overflow:hidden}
+.sh h3{margin:0 0 8px;font-family:Fraunces,Georgia,serif}
+#auth{padding:28px 20px}#auth h1{font:700 30px/1.1 Fraunces,Georgia,serif;margin:30px 0 6px}#auth input{margin:6px 0}
+.row{display:flex;gap:8px;margin-top:8px}
+.m{max-width:80%;padding:8px 11px;border-radius:14px;margin:5px 0;background:var(--card);border:1px solid var(--ln);word-wrap:break-word}.m.me{margin-left:auto;background:var(--ac);color:#fff;border-color:var(--ac)}
+.rc{background:#0002;border-radius:8px;padding:7px 9px;margin-bottom:5px;cursor:pointer}
+.peers{display:flex;gap:6px;overflow-x:auto;padding:10px 0}.pe{white-space:nowrap;background:var(--card);border:1px solid var(--ln);border-radius:99px;padding:5px 12px}.pe.on{background:var(--ac);color:#fff;border-color:var(--ac)}
+.av{width:64px;height:64px;border-radius:50%;background:var(--ac);color:#fff;display:grid;place-items:center;font:700 28px Fraunces,Georgia,serif}
+.st{display:flex;gap:18px;margin:12px 0;text-align:center;font-size:12px;color:var(--mut)}.st b{display:block;font-size:18px;color:var(--ink)}
+.b2{margin:6px 0;font-size:13px}.b2 i{display:block;height:6px;background:var(--ac);border-radius:3px;margin-top:2px}
+.gr{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}.tl{position:relative;aspect-ratio:9/14;background:#000;border-radius:8px;overflow:hidden;cursor:pointer}.tl video{width:100%;height:100%;object-fit:cover}.tl span{position:absolute;left:4px;right:4px;bottom:4px;color:#fff;font-size:11px}
+#toast{position:fixed;left:50%;bottom:80px;transform:translateX(-50%);background:#000d;color:#fff;padding:8px 14px;border-radius:99px;display:none;z-index:20;font-size:13px}
+:root{--bg:#f3ead6;--card:#fffaf0;--ac:#c2371f}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#14110f;--card:#221d19}}
+:root[data-theme="dark"]{--bg:#14110f;--card:#221d19}
+#auth{position:relative;min-height:100%;background:radial-gradient(120% 70% at 50% 0,#4a1409 0,#17100c 62%);color:#f4ead8;overflow:hidden;padding:40px 26px;box-sizing:border-box}
+#auth::before{content:"अ";position:absolute;right:-30px;top:-50px;font:700 340px/1 'Noto Sans Devanagari',serif;color:#ffffff0d;pointer-events:none}
+#auth>*{position:relative}#auth h1{font-size:38px;margin-top:80px;letter-spacing:.02em}#auth .mut{color:#cdbfa8}
+#auth input{background:#ffffff12;border-color:#ffffff26;color:#fff;padding:13px;border-radius:12px}#auth input::placeholder{color:#b9ab94}#auth .gh{color:#f4ead8;border-color:#ffffff40}
+.top{border:0;padding:12px 16px 6px}.logo{font-size:18px;letter-spacing:.14em}.tag-nep{font-size:12px;color:var(--ac);font-weight:600}
+nav{margin:6px 12px 10px;border:1px solid var(--ln);border-radius:99px;background:var(--card);padding:4px;box-shadow:0 6px 20px #0002}
+nav button{border-radius:99px;padding:9px 0;transition:.2s}nav button.on{background:var(--ac);color:#fff}
+.pr{box-shadow:0 4px 14px #c2371f55}
+#feed{inset:0 8px;border-radius:22px}.reel{border-radius:22px}
+.reel::before{position:absolute;right:-20px;top:70px;font:700 290px/1 'Noto Sans Devanagari',serif;color:#ffffff10;z-index:0;pointer-events:none}
+.Society::before{content:"स"}.Civics::before{content:"ध"}.Geography::before{content:"भू"}.Service::before{content:"सेवा";font-size:190px}.Development::before{content:"वि"}.Culture::before{content:"सं"}
+.reel::after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 18% 8%,#ffffff18,transparent 50%);pointer-events:none}
+.bars b{height:4px;border-radius:4px;transition:background .3s}
+.pill{border:1px solid #f2c14e88;color:#f6d77a;background:#0004;backdrop-filter:blur(6px)}
+.sl{font-size:clamp(24px,6.6vw,32px);padding-left:14px;border-left:3px solid #f2c14e;animation:rise .55s cubic-bezier(.2,.7,.2,1)}
+@keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.ti{font:700 17px Fraunces,Georgia,'Noto Sans Devanagari',serif}
+.rail button{background:#ffffff1f;backdrop-filter:blur(10px);border:1px solid #ffffff30;transition:transform .15s}.rail button:active{transform:scale(.88)}.rail button.on{background:var(--ac);border-color:transparent}
+.av{width:76px;height:76px;background:linear-gradient(135deg,#c2371f,#e8a200);box-shadow:0 6px 18px #c2371f55}
+.m{border-radius:18px 18px 18px 6px}.m.me{border-radius:18px 18px 6px 18px}
+.sh{border-radius:22px 22px 0 0}.sh::before{content:"";display:block;width:40px;height:4px;border-radius:4px;background:var(--ln);margin:-6px auto 12px}.sh.full::before{display:none}
+</style></head><body>
+<div id="app">
+<div id="auth">
+ <h1>AKSHARAA SCROLLS</h1><p class="mut">Doomscroll your Social Studies. Pick a username and password. No email needed.</p>
+ <form id="af" onsubmit="return false"><input id="un" name="username" placeholder="Username (a–z, 0–9, _ .)" autocomplete="username" autocapitalize="off"><input id="pw" name="password" type="password" placeholder="Password (6+ characters)" autocomplete="current-password">
+ <div class="row"><button class="pr" id="li">Log in</button><button class="gh" id="rg">Register</button></div><p id="ae" class="mut"></p></form>
+</div>
+<div id="shell">
+ <div class="top"><span class="logo">AKSHARAA SCROLLS</span><span class="tag-nep">अक्षरा स्क्रोल्स</span></div>
+ <main><div class="view on" id="feed"></div><div class="view" id="dm"></div>
+ <div class="view" id="create"><div class="pg"><h3>Create a reel</h3><p class="mut">Upload a short video that teaches something. It appears on your profile and can show up in feeds and DMs on this device.</p>
+ <input type="file" id="vf" accept="video/*"><input id="vc" placeholder="Caption" style="margin:8px 0"><button class="pr" id="vs">Post reel</button><p id="vm" class="mut"></p></div></div>
+ <div class="view" id="prof"></div></main>
+ <nav><button data-go="feed" class="on">Reels</button><button data-go="dm">Messages</button><button data-go="create">Create</button><button data-go="prof">Profile</button></nav>
+</div></div><div id="toast"></div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<script>
+// ---------- Content bank (facts taken from the Grade 9 Social Studies guide). Each slide: [English, Nepali] ----------
+const T=[
+{id:"soc",tag:"Society",ti:["Origin of Society","समाजको उत्पत्ति"],cap:["What really makes a society?","समाज वास्तवमा के हो?"],
+ s:[["A society is a lasting network of people who depend on one another.","समाज भनेको एकअर्कामा निर्भर मानिसहरूको दिगो सम्बन्धको जाल हो।"],["A crowd disperses. A society continues across generations.","भीड तितरबितर हुन्छ; समाज पुस्तौँपुस्ता चलिरहन्छ।"],["It is dynamic: technology, ideas and migration keep reshaping it.","समाज गतिशील छ: प्रविधि, विचार र बसाइँसराइले यसलाई बदलिरहन्छन्।"],["A community is bound by place or belonging; society is the wider web.","समुदाय स्थान वा अपनत्वले बाँधिन्छ; समाज फराकिलो सम्बन्धजाल हो।"]],
+ m:"Society meets shared needs no individual can satisfy alone, through families, schools, occupations and public institutions. It shapes character by teaching language, values and responsibilities, while individuals reshape it through creativity, criticism and collective action. Neither is wholly independent of the other."},
+{id:"con",tag:"Civics",ti:["Constitutional Development","संवैधानिक विकास"],cap:["Seven constitutions, one long journey","सात संविधान, एउटै लामो यात्रा"],
+ s:[["Nepal has studied seven major constitutional documents.","नेपालमा सातवटा प्रमुख संवैधानिक दस्तावेज अध्ययन गरिन्छ।"],["2004 B.S.: the Nepal Government Constitutional Act, under Padma Shumsher.","वि.सं. २००४: पद्मशमशेरको पालामा नेपाल सरकार वैधानिक कानुन।"],["2007 Interim Act · 2015 Constitution · 2019 Panchayat Constitution · 2047 Constitution.","२००७ अन्तरिम ऐन · २०१५ संविधान · २०१९ पञ्चायती संविधान · २०४७ संविधान।"],["2063: Interim Constitution. 2072 Ashoj 3 (20 Sep 2015): the present Constitution.","२०६३: अन्तरिम संविधान। २०७२ असोज ३ (२०१५ सेप्टेम्बर २०): वर्तमान संविधान।"]],
+ m:"Dates: 2004 Magh 13; 2007 Chaitra 29; 2015 Falgun 1; 2019 Poush 1; 2047 Kartik 23; 2063 Magh 1; 2072 Ashoj 3. The lesson of this history: constitutions need acceptance and implementation, not just announcement. Durability requires rights protection, fair representation, effective services and peaceful correction of weaknesses."},
+{id:"rig",tag:"Civics",ti:["Fundamental Rights","मौलिक हक"],cap:["Rights the Constitution guards","संविधानले रक्षा गर्ने अधिकार"],
+ s:[["Fundamental rights are basic rights the constitution protects specially.","मौलिक हक संविधानले विशेष संरक्षण गरेका आधारभूत अधिकार हुन्।"],["They sit in Part 3 of the Constitution: Articles 16–46.","ती संविधानको भाग ३ मा छन्: धारा १६–४६।"],["Constitutional remedy: seek protection when a right is violated.","संवैधानिक उपचार: हक हनन भए संरक्षण माग्न सकिन्छ।"],["The Supreme Court and High Courts hold power to grant remedies.","सर्वोच्च र उच्च अदालतलाई उपचार दिने अधिकार छ।"]],
+ m:"Part 3 has 31 fundamental-right headings covering civil, political, social and economic rights. Article 46 is the right to constitutional remedies; Articles 133 and 144 give powers to the Supreme Court and High Courts; Article 48 covers citizen duties. Untouchability is prohibited, protecting equal dignity. Rights must be read with their constitutional conditions, so check the exact legal text."},
+{id:"gov",tag:"Civics",ti:["Good Governance","सुशासन"],cap:["What makes a government good?","राम्रो शासन कस्तो हुन्छ?"],
+ s:[["Good governance is fair, answerable and effective public management.","सुशासन भनेको निष्पक्ष, उत्तरदायी र प्रभावकारी सार्वजनिक व्यवस्थापन हो।"],["Rule of law: authority works within law, not personal preference.","कानुनी शासन: अधिकार कानुनभित्र चल्छ, व्यक्तिगत रुचिले होइन।"],["Openness lets people see and question decisions.","पारदर्शिताले जनतालाई निर्णय हेर्न र प्रश्न गर्न दिन्छ।"],["Accountability: officials must explain their actions.","उत्तरदायित्व: अधिकारीले आफ्ना कार्यको जवाफ दिनुपर्छ।"]],
+ m:"Good governance is about how decisions are made and carried out, not whether a leader is popular. Its elements include rule of law, openness, participation, responsiveness, fair involvement, accountability and efficient use of resources."},
+{id:"lat",tag:"Geography",ti:["Latitude and Longitude","अक्षांश र देशान्तर"],cap:["Earth’s invisible grid","पृथ्वीको अदृश्य ग्रिड"],
+ s:[["Latitude: angle north or south of the Equator (0°).","अक्षांश: भूमध्यरेखा (०°) बाट उत्तर वा दक्षिणको कोण।"],["Longitude: angle east or west of the Prime Meridian, through Greenwich.","देशान्तर: ग्रिनिचबाट जाने प्रधान मेरिडियनको पूर्व वा पश्चिमको कोण।"],["Earth turns 360° in 24 hours: 15° per hour, 4 minutes per degree.","पृथ्वी २४ घण्टामा ३६०° घुम्छ: प्रतिघण्टा १५°, प्रतिडिग्री ४ मिनेट।"],["Greenwich became the world’s initial meridian in 1884.","सन् १८८४ मा ग्रिनिच विश्वको प्रारम्भिक मेरिडियन बन्यो।"]],
+ m:"The poles are 90° N and S; the Tropics are about 23.5° N and S; the polar circles about 66.5° N and S. The International Date Line follows roughly 180° but bends around some countries. Earth rotates west to east, so places farther east see sunrise and noon earlier."},
+{id:"lan",tag:"Geography",ti:["Nepal’s Landforms","नेपालको भू-बनोट"],cap:["Plains to peaks in a few hours","केही घण्टामै मैदानदेखि हिमालसम्म"],
+ s:[["Nepal climbs from plains to peaks within a short distance.","नेपालमा छोटो दूरीमै तराईदेखि हिमालसम्म उचाइ फेरिन्छ।"],["Three regions: Terai, Hill and Himalayan.","तीन क्षेत्र: तराई, पहाड र हिमाल।"],["About 885 km east–west and 193 km north–south on average.","पूर्व-पश्चिम करिब ८८५ किमी, उत्तर-दक्षिण औसत १९३ किमी।"],["7 provinces, 77 districts; 147,516 km² on the revised map.","७ प्रदेश, ७७ जिल्ला; संशोधित नक्सामा १,४७,५१६ वर्ग किमी।"]],
+ m:"Nepal lies at roughly 26°22′–30°27′ N and 80°04′–88°12′ E. The landforms arose as the Indian plate pushed into the Eurasian plate, folding and lifting old Tethys Sea sediments. The Chure (Siwalik) hills lie north of the Terai, with Inner Terai valleys and the Mahabharat Range beyond. Older textbooks give 147,181 km², so say which version you use."},
+{id:"cli",tag:"Geography",ti:["Nepal’s Climate","नेपालको हावापानी"],cap:["Why Manang stays dry","मनाङ किन सुक्खा रहन्छ?"],
+ s:[["Weather is today’s atmosphere; climate is the long-run pattern.","मौसम आजको वायुमण्डल हो; हावापानी लामो समयको ढाँचा हो।"],["Higher places are colder; lower places are warmer.","उचाइ बढ्दै जाँदा चिसो, होचो ठाउँ तातो।"],["Roughly 90% of rain falls in the June–September monsoon.","करिब ९०% वर्षा जुन–सेप्टेम्बरको मनसुनमा पर्छ।"],["Manang and Mustang stay dry because mountains block the moisture.","हिमालले चिस्यान रोक्ने भएकाले मनाङ र मुस्ताङ सुक्खा छन्।"]],
+ m:"The monsoon brings moist air mainly from the Bay of Bengal, and rain generally decreases from east to west. Winter (December–February) is cool and dry, though western weather systems bring rain and mountain snow. Climate is normally studied over a 30-year reference period. The 90% figure is a textbook estimate that varies by place and how the season is defined."},
+{id:"srv",tag:"Service",ti:["Scouts and the Red Cross","स्काउट र रेडक्रस"],cap:["Service before self","आफूभन्दा पहिले सेवा"],
+ s:[["Scouting builds character, teamwork and service.","स्काउटिङले चरित्र, टोलीभावना र सेवा विकास गर्छ।"],["Red Cross principles: humanity, impartiality, neutrality, independence, voluntary service, unity, universality.","रेडक्रसका सिद्धान्त: मानवता, निष्पक्षता, तटस्थता, स्वतन्त्रता, स्वैच्छिक सेवा, एकता, विश्वव्यापकता।"],["Nepal Red Cross Society began on 4 September 1963 (2020 B.S.).","नेपाल रेडक्रस सोसाइटी सन् १९६३ सेप्टेम्बर ४ (वि.सं. २०२०) मा सुरु भयो।"],["Nepal Scouts: 18 June 1952.","नेपाल स्काउट: सन् १९५२ जुन १८।"]],
+ m:"World Scouting began with Baden-Powell’s Brownsea camp in 1907, and Scouting for Boys appeared in 1908. The ICRC’s founding meeting was on 17 February 1863. Nepal Red Cross work includes disaster assistance, first-aid training and blood services."},
+{id:"hyd",tag:"Development",ti:["Hydropower","जलविद्युत"],cap:["Nepal’s water-power story","नेपालको जलशक्तिको कथा"],
+ s:[["Hydropower turns falling water into electricity.","जलविद्युतले खसिरहेको पानीलाई बिजुलीमा बदल्छ।"],["Pharping Hydropower Station opened on 22 May 1911 (1968 B.S.).","फर्पिङ जलविद्युत केन्द्र सन् १९११ मे २२ (वि.सं. १९६८) मा उद्घाटन भयो।"],["It began with 500 kW: two 250 kW units.","यो ५०० किलोवाट (२५०-२५० किलोवाटका दुई इकाइ) बाट सुरु भयो।"],["Textbooks cite 83,000 MW theoretical and about 42,000 MW feasible.","पाठ्यपुस्तकमा ८३,००० मेगावाट सैद्धान्तिक र करिब ४२,००० मेगावाट सम्भाव्य उल्लेख छ।"]],
+ m:"Potential is not installed capacity: projects need finance, engineering, transmission, environmental review, community agreement and maintenance. Reliable clean power supports homes, schools, health services, industry and irrigation, and can reduce fuelwood use and protect forests."},
+{id:"rel",tag:"Culture",ti:["Religions in Nepal","नेपालका धर्महरू"],cap:["Many faiths, one country","धेरै धर्म, एउटै देश"],
+ s:[["Nepal is home to Hindu, Buddhist, Kirat, Muslim, Christian and other communities.","नेपालमा हिन्दु, बौद्ध, किरात, मुस्लिम, क्रिश्चियन लगायत समुदाय छन्।"],["Four Noble Truths: suffering, its origin, its end, the path.","चार आर्यसत्य: दुःख, त्यसको कारण, अन्त्य र मार्ग।"],["Five pillars of Islam: faith, prayer, charity, fasting, pilgrimage.","इस्लामका पाँच स्तम्भ: आस्था, नमाज, दान, रोजा, हज।"],["Respecting diversity means peaceful practice and no unfair treatment.","विविधताको सम्मान भनेको शान्तिपूर्ण आचरण र अन्यायरहित व्यवहार हो।"]],
+ m:"Hindu traditions include devotion, moral duty, truthfulness and non-harm, with diverse schools; Sanatan Dharma is a name for the enduring tradition. A religion should be described accurately without assuming all followers behave identically. The guide names the 2078 B.S. (2021) census but does not give the percentages."}];
+const TT={};T.forEach(t=>TT[t.id]=t);
+// ---------- State & storage ----------
+const $=s=>document.querySelector(s),uid=()=>Math.random().toString(36).slice(2,9);
+const esc=s=>String(s).replace(/[&<>"']/g,c=>'&#'+c.charCodeAt(0)+';');
+const hs=s=>{let x=5381;for(const c of s)x=((x*33)^c.charCodeAt(0))>>>0;return x.toString(36)};
+let DB={users:{},dms:[],vids:[]},UID,NM={},me,LANG=0,R=[],bw=0,bn=0,io,tm,ae,dp,pv,view='feed';
+// ---------- Supabase backend: PASTE YOUR TWO VALUES HERE ----------
+const SB=supabase.createClient("https://uqmsvrjsfvihuczgwfhg.supabase.co","sb_publishable_veKBE7k8ahPj5HsbtA61eg_B9Mbbiru");
+let st;const save=()=>{clearTimeout(st);st=setTimeout(()=>{const u=DB.users[me];if(u)SB.from('profiles').update({bio:u.bio,tag:u.tag,top:u.top,liked:u.liked,fw:u.fw,seen:u.seen,lang:u.lang}).eq('id',UID).then(()=>{})},800)};
+const vput=async(k,b)=>{const r=await SB.storage.from('videos').upload(k,b,{contentType:b.type});return !r.error};
+const vget=async k=>{try{const r=await fetch(SB.storage.from('videos').getPublicUrl(k).data.publicUrl);return r.ok?await r.blob():null}catch(e){return null}};
+async function pull(){const [p,d,v]=await Promise.all([SB.from('profiles').select('*'),SB.from('dms').select('*').order('t'),SB.from('vids').select('*').order('t')]);
+ (p.data||[]).forEach(r=>{NM[r.id]=r.username;if(r.username==me&&DB.users[me])return;DB.users[r.username]={id:r.id,bio:r.bio||'',joined:r.joined,tag:r.tag||{},top:r.top||{},liked:r.liked||[],fw:r.fw||0,seen:r.seen||0,lang:r.lang||0}});
+ if(d.data)DB.dms=d.data.map(r=>({id:r.id,from:NM[r.from_id],to:NM[r.to_id],t:r.t,text:r.text,reel:r.reel}));
+ if(v.data)DB.vids=v.data.map(r=>({id:r.id,owner:NM[r.owner_id],cap:r.cap,t:r.t}))}
+async function sendDM(m){DB.dms.push(m);const q=await SB.from('dms').insert({from_id:UID,to_id:DB.users[m.to].id,t:m.t,text:m.text||'',reel:m.reel||null});if(q.error)toast('Could not send');await pull();if(view=='dm')dmView()}
+async function addVid(v){DB.vids.push(v);await SB.from('vids').insert({id:v.id,owner_id:UID,cap:v.cap,t:v.t})}
+async function poll(){const n=DB.dms.length;await pull();if(view=='dm'&&DB.dms.length!=n&&!(document.activeElement&&document.activeElement.id=='mt'&&$('#mt').value))dmView()}
+async function start(){const {data}=await SB.auth.getSession();if(!data.session)return;UID=data.session.user.id;await pull();me=NM[UID];if(me)enter()}
+function toast(t){const e=$('#toast');e.textContent=t;e.style.display='block';setTimeout(()=>e.style.display='none',2000)}
+function modal(h,c=''){const o=document.createElement('div');o.className='ov';o.innerHTML=`<div class="sh ${c}">${h}</div>`;o.onclick=e=>{if(e.target==o)o.remove()};document.body.append(o);return o}
+// ---------- Auth ----------
+async function auth(reg){const n=$('#un').value.trim().toLowerCase(),p=$('#pw').value,er=$('#ae');er.textContent='';
+ if(!/^[a-z0-9_.]{3,20}$/.test(n))return er.textContent='Username: 3–20 letters, digits, _ or .';if(p.length<6)return er.textContent='Password needs 6+ characters.';
+ const c={email:n+'@aksharaa.site',password:p},r=reg?await SB.auth.signUp(c):await SB.auth.signInWithPassword(c);
+ if(r.error)return er.textContent=/registered/i.test(r.error.message)?'That username is taken.':/invalid login/i.test(r.error.message)?'Wrong username or password.':r.error.message;
+ if(reg){if(!r.data.session)return er.textContent='Setup: turn OFF "Confirm email" in Supabase (see README).';
+  const q=await SB.from('profiles').insert({id:r.data.user.id,username:n,joined:Date.now()});if(q.error){await SB.auth.signOut();return er.textContent='That username is taken.'}}
+ await start()}
+$('#li').onclick=()=>auth(0);$('#rg').onclick=()=>auth(1);
+function enter(){$('#auth').style.display='none';$('#shell').style.display='flex';LANG=DB.users[me].lang||0;
+ io=new IntersectionObserver(es=>es.forEach(x=>x.isIntersecting?act(x.target):deact(x.target)),{root:$('#feed'),threshold:.6});
+ R=[];bw=0;bn=0;$('#feed').innerHTML='';append(mk15());show('feed');if(!window._p)window._p=setInterval(poll,6000)}
+// ---------- Personal recommendation algorithm ----------
+// weight(topic) = 1 + tagScore + 0.5*topicScore (only positives). Signals: like +3, forward +5, "More about" +2, finished reel +1, quick skip -1.
+function learn(r,w){if(!r.tid)return;const t=TT[r.tid],u=DB.users[me];u.tag[t.tag]=(u.tag[t.tag]||0)+w;u.top[t.id]=(u.top[t.id]||0)+w;save()}
+function pick(w){let r=Math.random()*w.reduce((a,b)=>a+b);for(let i=0;i<w.length;i++)if((r-=w[i])<0)return i;return 0}
+function mk15(){const u=DB.users[me],w=T.map(t=>1+Math.max(0,u.tag[t.tag]||0)+.5*Math.max(0,u.top[t.id]||0)),out=[];
+ for(let i=0;i<15;i++){
+  if(DB.vids.length&&Math.random()<.2){out.push({id:uid(),vid:DB.vids[Math.random()*DB.vids.length|0].id});continue}
+  const t=T[Math.random()<.2?Math.random()*T.length|0:pick(w)],s=[0,1,2,3];if(Math.random()<.5)s.splice(1+Math.random()*3|0,1);
+  out.push({id:uid(),tid:t.id,s})}return out}
+function append(a){bn++;a.forEach(r=>{R.push(r);const e=reelEl(r);$('#feed').append(e);io.observe(e)});chip()}
+const chip=()=>{};
+function watched(){DB.users[me].seen++;bw++;if(bw>=7){bw=0;append(mk15())}save();chip()}
+// ---------- Reel rendering ----------
+const key=r=>r.vid||r.tid;
+function reelEl(r){const e=document.createElement('section');e._r=r;e._k=0;
+ const rail=`<div class="rail"><button data-a="like" title="Like">♥</button><button data-a="fwd" title="Forward">➤</button>${r.vid?'':'<button data-a="more" title="More about">ⓘ</button>'}</div>`;
+ if(r.vid){const v=DB.vids.find(x=>x.id==r.vid)||{owner:'?',cap:''};e.className='reel Vid';
+  e.innerHTML=`<video playsinline loop muted></video><div><span class="pill">Student reel</span></div><div><div class="ti"><a data-u="${esc(v.owner)}" style="color:#fff;cursor:pointer">@${esc(v.owner)}</a></div><div class="cc"></div></div>${rail}`;
+  vget(r.vid).then(b=>{if(b)e.querySelector('video').src=URL.createObjectURL(b)})}
+ else{const t=TT[r.tid];e.className='reel '+t.tag;
+  e.innerHTML=`<div><div class="bars">${r.s.map(()=>'<b></b>').join('')}</div><span class="pill">${t.tag}</span></div><div class="sl"></div><div><div class="ti"></div><div class="cc"></div><div class="lg"><button data-l="0">English</button><button data-l="1">नेपाली</button></div></div>${rail}`}
+ paint(e);return e}
+function paint(e){const r=e._r,u=DB.users[me];e.querySelector('[data-a=like]').classList.toggle('on',u.liked.includes(key(r)));
+ if(r.vid){const v=DB.vids.find(x=>x.id==r.vid);e.querySelector('.cc').textContent=v?v.cap:'';return}
+ const t=TT[r.tid],k=e._k;const sl=e.querySelector('.sl');sl.textContent=t.s[r.s[k]][LANG];if(e._lk!==k){e._lk=k;sl.style.animation='none';sl.offsetWidth;sl.style.animation=''}
+ e.querySelectorAll('.bars b').forEach((b,j)=>b.className=j<=k?'f':'');
+ e.querySelector('.ti').textContent=t.ti[LANG];e.querySelector('.cc').textContent=t.cap[LANG];
+ e.querySelectorAll('.lg button').forEach(b=>b.classList.toggle('on',+b.dataset.l==LANG));
+ if(k==r.s.length-1&&!e._c&&e.isConnected&&e.closest('#feed')){e._c=1;learn(r,1)}}
+function adv(){if(ae&&!ae._r.vid&&ae._k<ae._r.s.length-1){ae._k++;paint(ae)}else clearInterval(tm)}
+function act(e){ae=e;e._t0=Date.now();clearInterval(tm);paint(e);const v=e.querySelector('video');if(v)v.play().catch(()=>{});
+ e._w=setTimeout(()=>{if(!e._seen){e._seen=1;watched()}},1500);tm=setInterval(adv,4500)}
+function deact(e){clearTimeout(e._w);if(!e._seen&&e._t0&&Date.now()-e._t0<1200){learn(e._r,-1);e._t0=0}const v=e.querySelector('video');if(v)v.pause()}
+// ---------- Forwarding, "More about" ----------
+function fwd(r){const o=modal(`<h3>Forward reel</h3><input id="fu" list="ul" placeholder="Username" autocomplete="off"><datalist id="ul">${Object.keys(DB.users).filter(x=>x!=me).map(x=>`<option value="${esc(x)}">`).join('')}</datalist><input id="fn" placeholder="Add a note (optional)" style="margin:8px 0"><button class="pr" id="fs">Send</button><p class="mut" id="fe"></p>`);
+ o.querySelector('#fs').onclick=()=>{const n=o.querySelector('#fu').value.trim().toLowerCase();if(!DB.users[n]||n==me)return o.querySelector('#fe').textContent='No such user (or that is you).';
+  DB.users[me].fw++;sendDM({id:uid(),from:me,to:n,t:Date.now(),text:o.querySelector('#fn').value,reel:{id:r.id,tid:r.tid,s:r.s,vid:r.vid}});learn(r,5);save();o.remove();toast('Forwarded to @'+n)}}
+function more(r){learn(r,2);const t=TT[r.tid];modal(`<h3>${t.ti[LANG]}</h3><p class="mut">${t.ti[1-LANG]}</p><p>${t.m}</p><p class="mut">More about: English only.</p>`)}
+function viewer(r){const o=modal('','full'),e=reelEl(r);o.firstChild.append(e);if(e.querySelector('video'))e.querySelector('video').play().catch(()=>{})}
+// ---------- Views ----------
+function show(v){view=v;document.querySelectorAll('.view').forEach(e=>e.classList.toggle('on',e.id==v));document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('on',b.dataset.go==v));
+ if(v=='dm')dmView();if(v=='prof'){pv=pv||me;profView()}}
+function dmView(){const ms=DB.dms.filter(m=>m.from==me||m.to==me).sort((a,b)=>a.t-b.t);
+ const peers=[...new Set(ms.slice().reverse().map(m=>m.from==me?m.to:m.from))];if(dp&&!peers.includes(dp))peers.unshift(dp);
+ const th=ms.filter(m=>m.from==dp||m.to==dp);
+ $('#dm').innerHTML=`<div class="pg"><div class="row" style="margin:0"><input id="nu" placeholder="Start a chat: enter a username"><button class="pr" id="go">Chat</button></div>
+ <div class="peers">${peers.map(p=>`<button class="pe ${p==dp?'on':''}" data-p="${esc(p)}">@${esc(p)}</button>`).join('')||'<span class="mut">No chats yet.</span>'}</div>
+ ${dp?`<div id="th">${th.map(m=>`<div class="m ${m.from==me?'me':''}">${m.reel?`<div class="rc" data-m="${m.id}">▶ ${m.reel.vid?'Student reel':TT[m.reel.tid].ti[LANG]}</div>`:''}${esc(m.text||'')}</div>`).join('')||'<p class="mut">Say hello or forward a reel from the feed.</p>'}</div>
+ <div class="row"><input id="mt" placeholder="Message @${esc(dp)}"><button class="pr" id="sd">Send</button></div>`:''}</div>`;
+ const v=$('#dm');v.scrollTop=v.scrollHeight}
+function profView(){const u=DB.users[pv],mine=pv==me,vs=DB.vids.filter(v=>v.owner==pv);
+ const tg=Object.entries(u.tag).filter(x=>x[1]>0).sort((a,b)=>b[1]-a[1]).slice(0,5),mx=tg[0]?tg[0][1]:1;
+ $('#prof').innerHTML=`<div class="pg"><div class="av">${esc(pv[0].toUpperCase())}</div><h2 style="margin:8px 0 2px">@${esc(pv)}</h2><p class="mut">Joined ${new Date(u.joined).toLocaleDateString()}</p>
+ ${mine?`<textarea id="bio" rows="2" placeholder="Your bio">${esc(u.bio)}</textarea><div class="row"><button class="pr" id="sb">Save bio</button><button class="gh" id="lo">Log out</button></div>`:`<p>${esc(u.bio)}</p><button class="pr" data-dm="${esc(pv)}">Message</button>`}
+ <div class="st"><div><b>${vs.length}</b>reels</div><div><b>${u.liked.length}</b>liked</div><div><b>${u.fw}</b>forwarded</div><div><b>${u.seen}</b>watched</div></div>
+ ${mine?`<h4>Your feed algorithm</h4>${tg.length?tg.map(([k,v])=>`<div class="b2">${k}<i style="width:${v/mx*100}%"></i></div>`).join(''):'<p class="mut">Like, forward or open “More about” on reels and your feed will tilt toward them.</p>'}`:''}
+ <h4>Reels</h4><div class="gr">${vs.map(v=>`<div class="tl" data-v="${v.id}"><video muted preload="metadata"></video><span>${esc(v.cap)}</span></div>`).join('')||'<p class="mut">No uploads yet.</p>'}</div>
+ <h4>Find a user</h4><div class="row" style="margin:0"><input id="fq" placeholder="Username"><button class="gh" id="fg">View</button></div></div>`;
+ vs.forEach(v=>vget(v.id).then(b=>{const el=$(`[data-v="${v.id}"] video`);if(b&&el)el.src=URL.createObjectURL(b)+'#t=0.1'}))}
+// ---------- Events ----------
+document.addEventListener('click',async ev=>{const b=ev.target.closest('button,[data-u],.rc,.sl,.tl');if(!b)return;const e=b.closest('.reel'),r=e&&e._r,u=me&&DB.users[me];
+ if(b.dataset.go){if(b.dataset.go=='prof')pv=me;return show(b.dataset.go)}
+ if(b.matches('.sl')){const q=b.getBoundingClientRect(),last=r.s.length-1;
+  if(ev.clientX<q.left+q.width/2)e._k=Math.max(0,e._k-1);else if(e._k<last)e._k++;else if(e.nextElementSibling)e.nextElementSibling.scrollIntoView({behavior:'smooth'});
+  paint(e);if(e==ae){clearInterval(tm);tm=setInterval(adv,4500)}return}
+ if(b.dataset.a=='like'){const k=key(r),i=u.liked.indexOf(k);i<0?(u.liked.push(k),learn(r,3)):(u.liked.splice(i,1),learn(r,-3));save();return paint(e)}
+ if(b.dataset.a=='fwd')return fwd(r);if(b.dataset.a=='more')return more(r);
+ if(b.dataset.l){LANG=+b.dataset.l;u.lang=LANG;save();return document.querySelectorAll('.reel').forEach(paint)}
+ if(b.dataset.u&&DB.users[b.dataset.u]){pv=b.dataset.u;document.querySelectorAll('.ov').forEach(o=>o.remove());return show('prof')}
+ if(b.dataset.dm){dp=b.dataset.dm;return show('dm')}
+ if(b.dataset.p){dp=b.dataset.p;return dmView()}
+ if(b.id=='go'){const n=$('#nu').value.trim().toLowerCase();if(DB.users[n]&&n!=me){dp=n;dmView()}else toast('No such user');return}
+ if(b.id=='sd'){const t=$('#mt').value.trim();if(t){sendDM({id:uid(),from:me,to:dp,t:Date.now(),text:t});save();dmView();$('#mt').focus()}return}
+ if(b.matches('.rc')){const m=DB.dms.find(x=>x.id==b.dataset.m);return m&&viewer(m.reel)}
+ if(b.matches('.tl'))return viewer({id:uid(),vid:b.dataset.v});
+ if(b.id=='sb'){u.bio=$('#bio').value.slice(0,160);save();return toast('Bio saved')}
+ if(b.id=='lo'){await SB.auth.signOut();return location.reload()}
+ if(b.id=='fg'){const n=$('#fq').value.trim().toLowerCase();if(DB.users[n]){pv=n;profView()}else toast('No such user');return}
+ if(b.id=='vs'){const f=$('#vf').files[0],m=$('#vm');if(!f)return m.textContent='Choose a video first.';if(f.size>45e6)return m.textContent='Keep it under 45 MB.';
+  const id=uid();if(!await vput(id,f))return m.textContent='Upload failed (file too large, or not signed in).';await addVid({id,owner:me,cap:$('#vc').value.slice(0,120),t:Date.now()});save();$('#vf').value='';$('#vc').value='';m.textContent='Posted! Find it on your profile.'}});
+document.addEventListener('keydown',e=>{if(e.key=='Enter'&&e.target.id=='mt')$('#sd').click();if(e.key=='Enter'&&e.target.id=='pw')$('#li').click()});
+start();
+</script></body></html>
